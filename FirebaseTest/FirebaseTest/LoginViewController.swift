@@ -20,6 +20,20 @@ class LoginViewController: UIViewController {
 
     }
     
+    func loginSuccessAlert(){
+        let alert = UIAlertController(title: "로그인 성공", message: "로그인을 성공했습니다", preferredStyle: UIAlertController.Style.alert)
+        let ok = UIAlertAction(title: "확인", style: UIAlertAction.Style.default)
+        alert.addAction(ok)
+        self.present(alert, animated: false)
+    }
+    
+    func loginFailAlert(){
+        let alert = UIAlertController(title: "로그인 실패", message: "로그인을 실패했습니다", preferredStyle: UIAlertController.Style.alert)
+        let ok = UIAlertAction(title: "확인", style: UIAlertAction.Style.default)
+        alert.addAction(ok)
+        self.present(alert, animated: false)
+    }
+    
     @IBAction func loginBtn(_ sender: Any) {
         Auth.auth().signIn(withEmail: loginEmailTextField.text!, password: loginPwdTextField.text!) { (user, error) in
                     if user != nil {
@@ -28,9 +42,13 @@ class LoginViewController: UIViewController {
                         self.loginPwdTextField.text = ""
                         self.loginEmailTextField.placeholder = "이미 로그인 된 상태입니다."
                         self.loginPwdTextField.placeholder = "이미 로그인 된 상태입니다."
+                        self.loginSuccessAlert()
                     }
                     else {
                         print("login fail")
+                        self.loginFailAlert()
+                        self.loginEmailTextField.text = ""
+                        self.loginPwdTextField.text = ""
                     }
         }
 
