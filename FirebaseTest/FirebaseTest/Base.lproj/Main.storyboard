@@ -10,7 +10,7 @@
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="FirebaseTest" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginPage" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="LoginViewController" customModule="FirebaseTest" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -41,7 +41,7 @@
                                 <state key="normal" title="회원가입"/>
                                 <connections>
                                     <action selector="signUpBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KOb-kz-SGy"/>
-                                    <segue destination="hhm-ey-bbC" kind="show" id="PWc-bE-Yo6"/>
+                                    <segue destination="hhm-ey-bbC" kind="show" id="vp2-1j-ceL"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -60,7 +60,7 @@
         <!--Sign Up View Controller-->
         <scene sceneID="wFT-jo-uro">
             <objects>
-                <viewController id="hhm-ey-bbC" customClass="SignUpViewController" customModule="FirebaseTest" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignUpPage" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hhm-ey-bbC" customClass="SignUpViewController" customModule="FirebaseTest" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pgL-aL-0nu">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
