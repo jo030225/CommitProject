@@ -22,14 +22,16 @@ class SignUpViewController: UIViewController {
     }
     
     func backMain(){
-        let loginPage = self.storyboard?.instantiateViewController(withIdentifier: "LoginPage")
-        self.present(loginPage!, animated: true, completion: nil)
+//        let loginPage = self.storyboard?.instantiateViewController(withIdentifier: "LoginPage")
+//        self.present(loginPage!, animated: true)
         self.dismiss(animated: true, completion: nil)
     }
     
     func signUpSuccessAlert(){
         let alert = UIAlertController(title: "회원가입 성공", message: "회원가입을 성공했습니다", preferredStyle: UIAlertController.Style.alert)
-        let ok = UIAlertAction(title: "확인", style: UIAlertAction.Style.default)
+        let ok = UIAlertAction(title: "확인", style: UIAlertAction.Style.default){ (_) in
+            self.backMain()
+        }
         alert.addAction(ok)
         self.present(alert, animated: false)
     }
@@ -47,7 +49,6 @@ class SignUpViewController: UIViewController {
                       if user !=  nil{
                         print("register success")
                         self.signUpSuccessAlert()
-                        self.backMain()
                       }
                       else{
                         print("register failed")
