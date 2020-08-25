@@ -20,9 +20,17 @@ class LoginViewController: UIViewController {
 
     }
     
+    func goMainPage(){
+        guard let goMain = self.storyboard?.instantiateViewController(identifier: "MainPage") else { return }
+        goMain.modalPresentationStyle = .fullScreen
+        self.present(goMain, animated: true)
+    }
+    
     func loginSuccessAlert(){
         let alert = UIAlertController(title: "로그인 성공", message: "로그인을 성공했습니다", preferredStyle: UIAlertController.Style.alert)
-        let ok = UIAlertAction(title: "확인", style: UIAlertAction.Style.default)
+        let ok = UIAlertAction(title: "확인", style: UIAlertAction.Style.default){ (_) in
+            self.goMainPage()
+        }
         alert.addAction(ok)
         self.present(alert, animated: false)
     }

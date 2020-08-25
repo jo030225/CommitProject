@@ -16,6 +16,7 @@
 		BD7663D424EE6371006BCF58 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7663D324EE6371006BCF58 /* SignUpViewController.swift */; };
 		BD7663D824EF6871006BCF58 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7663D724EF6871006BCF58 /* LoginViewController.swift */; };
 		BD7663E324F15149006BCF58 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD7663DF24F150D2006BCF58 /* GoogleService-Info.plist */; };
+		BD7663E524F53DC9006BCF58 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7663E424F53DC9006BCF58 /* MainViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		BD7663D724EF6871006BCF58 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		BD7663DF24F150D2006BCF58 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../.Trash/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BD7663E124F1510C006BCF58 /* GoogleService-Info-2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-2.plist"; sourceTree = "<group>"; };
+		BD7663E424F53DC9006BCF58 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 				BD7663B924EDF65C006BCF58 /* SceneDelegate.swift */,
 				BD7663D324EE6371006BCF58 /* SignUpViewController.swift */,
 				BD7663D724EF6871006BCF58 /* LoginViewController.swift */,
+				BD7663E424F53DC9006BCF58 /* MainViewController.swift */,
 				BD7663BD24EDF65C006BCF58 /* Main.storyboard */,
 				BD7663C024EDF65F006BCF58 /* Assets.xcassets */,
 				BD7663C224EDF65F006BCF58 /* LaunchScreen.storyboard */,
@@ -219,6 +222,7 @@
 				BD7663B824EDF65C006BCF58 /* AppDelegate.swift in Sources */,
 				BD7663D424EE6371006BCF58 /* SignUpViewController.swift in Sources */,
 				BD7663BA24EDF65C006BCF58 /* SceneDelegate.swift in Sources */,
+				BD7663E524F53DC9006BCF58 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
