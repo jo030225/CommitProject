@@ -9,14 +9,20 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import GoogleSignIn
 
 class LoginViewController: UIViewController {
 
     @IBOutlet var loginEmailTextField: UITextField!
     @IBOutlet var loginPwdTextField: UITextField!
+    @IBAction func signInButton(_ sender: Any) {
+        GIDSignIn.sharedInstance().signIn()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+        
 
     }
     
