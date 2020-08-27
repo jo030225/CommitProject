@@ -11,16 +11,16 @@ import Firebase
 import FirebaseAuth
 import GoogleSignIn
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, GIDSignInDelegate {
 
     @IBOutlet var loginEmailTextField: UITextField!
     @IBOutlet var loginPwdTextField: UITextField!
-    @IBAction func signInButton(_ sender: Any) {
-        GIDSignIn.sharedInstance().signIn()
-    }
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
+        GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance()?.presentingViewController = self
         
 
@@ -48,6 +48,35 @@ class LoginViewController: UIViewController {
         self.present(alert, animated: false)
     }
     
+    // 구글 로그인
+    // 여기부터
+    @available(iOS 9.0, *)
+       func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])
+         -> Bool {
+         return GIDSignIn.sharedInstance().handle(url)
+       }
+       
+       func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+           return GIDSignIn.sharedInstance().handle(url)
+       }
+       
+       func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
+         // ...
+            guard let authentication = user.authentication else { return }
+            let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
+                                                           accessToken: authentication.accessToken)
+            self.goMainPage()
+           
+            Auth.auth().signIn(with: credential) { (authResult, error) in
+                if let error = error{
+                   // ...
+                    return
+               }
+               
+           }
+       }
+    // 여기까지
+    
     @IBAction func loginBtn(_ sender: Any) {
         Auth.auth().signIn(withEmail: loginEmailTextField.text!, password: loginPwdTextField.text!) { (user, error) in
                     if user != nil {
@@ -69,6 +98,10 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func signUpBtn(_ sender: Any) {
+    }
+    
+    @IBAction func signInButton(_ sender: Any) {
+        GIDSignIn.sharedInstance().signIn()
     }
     /*
     // MARK: - Navigation
