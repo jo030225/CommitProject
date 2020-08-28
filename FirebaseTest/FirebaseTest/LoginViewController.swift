@@ -63,17 +63,18 @@ class LoginViewController: UIViewController, GIDSignInDelegate {
        func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
          // ...
             guard let authentication = user.authentication else { return }
-            let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
-                                                           accessToken: authentication.accessToken)
-            self.goMainPage()
+            let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken)
+            if let error = error{
+                
+            } else {
+                self.goMainPage()
+            }
+            
            
             Auth.auth().signIn(with: credential) { (authResult, error) in
-                if let error = error{
-                   // ...
-                    return
-               }
                
            }
+        
        }
     // 여기까지
     
