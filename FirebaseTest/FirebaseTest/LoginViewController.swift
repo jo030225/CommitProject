@@ -11,6 +11,9 @@ import Firebase
 import FirebaseAuth
 import GoogleSignIn
 import FBSDKLoginKit
+import FBSDKCoreKit
+import FBSDKShareKit
+import FBSDKPlacesKit
 
 class LoginViewController: UIViewController, GIDSignInDelegate {
 
@@ -20,12 +23,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
-        GIDSignIn.sharedInstance().delegate = self
-        GIDSignIn.sharedInstance()?.presentingViewController = self
-        
-        ApplicationDelegate.shared.application( application, didFinishLaunchingWithOptions: launchOptions )
-        
+       
 
     }
     
@@ -66,7 +64,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate {
        func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
             let google = GIDSignIn.sharedInstance().handle(url)
         
-            let facebook = URLContexts.first?.url else { return } ApplicationDelegate.shared.application( UIApplication.shared, open: url, sourceApplication: nil, annotation: [UIApplication.OpenURLOptionsKey.annotation] )
+            let facebook = ApplicationDelegate.shared.application( UIApplication.shared, open: url, sourceApplication: nil, annotation: [UIApplication.OpenURLOptionsKey.annotation] )
         
             return google || facebook
        }
