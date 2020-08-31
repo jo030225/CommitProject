@@ -15,7 +15,9 @@ import FBSDKCoreKit
 import FBSDKShareKit
 import FBSDKPlacesKit
 
-class LoginViewController: UIViewController, GIDSignInDelegate {
+class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDelegate {
+    
+    
 
     @IBOutlet var loginEmailTextField: UITextField!
     @IBOutlet var loginPwdTextField: UITextField!
@@ -23,8 +25,23 @@ class LoginViewController: UIViewController, GIDSignInDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-       
-
+        let loginButton = FBLoginButton()
+        loginButton.center = view.center
+        view.addSubview(loginButton)
+        
+        
+    }
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        // Override point for customization after application launch.
+        FirebaseApp.configure()
+        GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
+        GIDSignIn.sharedInstance().delegate = self
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+        
+        ApplicationDelegate.shared.application( application, didFinishLaunchingWithOptions: launchOptions )
+        
+        return true
     }
     
     func goMainPage(){
@@ -87,6 +104,17 @@ class LoginViewController: UIViewController, GIDSignInDelegate {
        }
     // 여기까지
     
+    func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
+        if let token = AccessToken.current, !token.isExpired {
+            // User is logged in, do work such as go to next view controller.
+            goMainPage()
+        }
+    }
+    
+    func loginButtonDidLogOut(_ loginButton: FBLoginButton) {
+        print("login fail")
+    }
+    
     @IBAction func loginBtn(_ sender: Any) {
         Auth.auth().signIn(withEmail: loginEmailTextField.text!, password: loginPwdTextField.text!) { (user, error) in
                     if user != nil {
@@ -112,6 +140,8 @@ class LoginViewController: UIViewController, GIDSignInDelegate {
     
     @IBAction func signInButton(_ sender: Any) {
         GIDSignIn.sharedInstance().signIn()
+    }
+    @IBAction func facebookLoginBtn(_ sender: FBLoginButton) {
     }
     /*
     // MARK: - Navigation
