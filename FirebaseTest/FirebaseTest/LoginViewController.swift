@@ -17,7 +17,6 @@ import FBSDKPlacesKit
 
 class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDelegate {
     
-    
 
     @IBOutlet var loginEmailTextField: UITextField!
     @IBOutlet var loginPwdTextField: UITextField!
@@ -25,25 +24,24 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+        GIDSignIn.sharedInstance().signIn()
+        GIDSignIn.sharedInstance().delegate = self
+        
         let loginButton = FBLoginButton()
         loginButton.center = view.center
         view.addSubview(loginButton)
         loginButton.permissions = ["public_profile", "email"]
-        
+        if let token = AccessToken.current, !token.isExpired {
+            goMainPage()
+        }
         
     }
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        FirebaseApp.configure()
-        GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
-        GIDSignIn.sharedInstance().delegate = self
-        GIDSignIn.sharedInstance()?.presentingViewController = self
+    
         
-        ApplicationDelegate.shared.application( application, didFinishLaunchingWithOptions: launchOptions )
-        
-        return true
-    }
+    
+    
     
     func goMainPage(){
         guard let goMain = self.storyboard?.instantiateViewController(identifier: "MainPage") else { return }
@@ -72,19 +70,12 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
     @available(iOS 9.0, *)
        func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])
          -> Bool {
-            let google = GIDSignIn.sharedInstance().handle(url)
-            
-            let facebook = ApplicationDelegate.shared.application( application, open: url, sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplication.OpenURLOptionsKey.annotation] )
-            
-            return google || facebook
+    
+            return GIDSignIn.sharedInstance().handle(url)
        }
        
        func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-            let google = GIDSignIn.sharedInstance().handle(url)
-        
-            let facebook = ApplicationDelegate.shared.application( UIApplication.shared, open: url, sourceApplication: nil, annotation: [UIApplication.OpenURLOptionsKey.annotation] )
-        
-            return google || facebook
+           return GIDSignIn.sharedInstance().handle(url)
        }
        
        func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
@@ -92,7 +83,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
             guard let authentication = user.authentication else { return }
             let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken)
             if let error = error{
-                
+                print("google login fail")
             } else {
                 self.goMainPage()
             }
@@ -106,11 +97,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
     // 여기까지
     
     func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
-        if let token = AccessToken.current, !token.isExpired {
-            // User is logged in, do work such as go to next view controller.
-            
-            goMainPage()
-        }
+        loginButton.permissions = ["public_profile", "email"]
     }
     
     func loginButtonDidLogOut(_ loginButton: FBLoginButton) {
