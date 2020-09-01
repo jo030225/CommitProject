@@ -52,14 +52,6 @@
                                     <action selector="signInButton:" destination="BYZ-38-t0r" eventType="valueChanged" id="h2q-Iy-a5o"/>
                                 </connections>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0wl-zB-NLz" customClass="FBLoginButton">
-                                <rect key="frame" x="72" y="485" width="230" height="48"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <connections>
-                                    <action selector="facebookLoginBtn:" destination="BYZ-38-t0r" eventType="valueChanged" id="6lg-6u-vYr"/>
-                                </connections>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>

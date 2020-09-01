@@ -28,6 +28,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
         let loginButton = FBLoginButton()
         loginButton.center = view.center
         view.addSubview(loginButton)
+        loginButton.permissions = ["public_profile", "email"]
         
         
     }
@@ -107,6 +108,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
     func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
         if let token = AccessToken.current, !token.isExpired {
             // User is logged in, do work such as go to next view controller.
+            
             goMainPage()
         }
     }
@@ -141,8 +143,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
     @IBAction func signInButton(_ sender: Any) {
         GIDSignIn.sharedInstance().signIn()
     }
-    @IBAction func facebookLoginBtn(_ sender: FBLoginButton) {
-    }
+   
     /*
     // MARK: - Navigation
 
