@@ -29,6 +29,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
         GIDSignIn.sharedInstance().delegate = self
         
         let loginButton = FBLoginButton()
+        loginButton.delegate = self
         loginButton.center = view.center
         view.addSubview(loginButton)
         loginButton.permissions = ["public_profile", "email"]
@@ -97,7 +98,15 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
     // 여기까지
     
     func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
-        loginButton.permissions = ["public_profile", "email"]
+        
+        let credential = FacebookAuthProvider.credential(withAccessToken: AccessToken.current!.tokenString)
+        Auth.auth().signIn(with: credential) { (authResult, error) in
+            
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+        }
     }
     
     func loginButtonDidLogOut(_ loginButton: FBLoginButton) {
