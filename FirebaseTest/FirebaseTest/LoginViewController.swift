@@ -100,17 +100,20 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
     func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
         
         let credential = FacebookAuthProvider.credential(withAccessToken: AccessToken.current!.tokenString)
-        Auth.auth().signIn(with: credential) { (authResult, error) in
             
             if let error = error {
                 print(error.localizedDescription)
                 return
+            } else {
+                self.goMainPage()
             }
+        Auth.auth().signIn(with: credential) { (authResult, error) in
+            
         }
     }
     
     func loginButtonDidLogOut(_ loginButton: FBLoginButton) {
-        print("login fail")
+        print("logout success")
     }
     
     @IBAction func loginBtn(_ sender: Any) {
