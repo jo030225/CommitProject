@@ -33,9 +33,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
         loginButton.center = view.center
         view.addSubview(loginButton)
         loginButton.permissions = ["public_profile", "email"]
-        if let token = AccessToken.current, !token.isExpired {
-            goMainPage()
-        }
+       
         
     }
     
@@ -100,15 +98,14 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
     func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
         
         let credential = FacebookAuthProvider.credential(withAccessToken: AccessToken.current!.tokenString)
-            
+        
+        Auth.auth().signIn(with: credential) { (authResult, error) in
             if let error = error {
-                print(error.localizedDescription)
-                return
+                print("facebook login fail")
             } else {
                 self.goMainPage()
             }
-        Auth.auth().signIn(with: credential) { (authResult, error) in
-            
+         
         }
     }
     
