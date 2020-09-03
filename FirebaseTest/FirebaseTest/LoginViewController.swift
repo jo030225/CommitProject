@@ -64,17 +64,24 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
         self.present(alert, animated: false)
     }
     
+    
+    
+    
+    
+    
+    
     // 구글 로그인
     // 여기부터
     @available(iOS 9.0, *)
-       func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])
-         -> Bool {
-    
-            return GIDSignIn.sharedInstance().handle(url)
-       }
        
-       func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-           return GIDSignIn.sharedInstance().handle(url)
+       func application( _ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:] ) -> Bool {
+           
+           let facebook = ApplicationDelegate.shared.application( app, open: url, sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplication.OpenURLOptionsKey.annotation] )
+               
+           let google = GIDSignIn.sharedInstance().handle(url)
+               
+           return facebook || google
+               
        }
        
        func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
