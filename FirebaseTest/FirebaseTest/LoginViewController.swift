@@ -21,7 +21,8 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
 
     @IBOutlet var loginEmailTextField: UITextField!
     @IBOutlet var loginPwdTextField: UITextField!
-   
+    var unchecked = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -147,7 +148,10 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
     @IBAction func signInButton(_ sender: Any) {
         GIDSignIn.sharedInstance().signIn()
     }
-   
+    @IBAction func autoLoginBtn(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+    }
+    
     /*
     // MARK: - Navigation
 

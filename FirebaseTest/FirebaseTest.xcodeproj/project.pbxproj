@@ -17,8 +17,6 @@
 		BD7663D824EF6871006BCF58 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7663D724EF6871006BCF58 /* LoginViewController.swift */; };
 		BD7663E524F53DC9006BCF58 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7663E424F53DC9006BCF58 /* MainViewController.swift */; };
 		BD7663E724F6A226006BCF58 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD7663E624F6A226006BCF58 /* GoogleService-Info.plist */; };
-		BDD33D1A2507BD520078202E /* baseline_check_box_outline_blank_black_18dp.png in Resources */ = {isa = PBXBuildFile; fileRef = BDD33D192507BD520078202E /* baseline_check_box_outline_blank_black_18dp.png */; };
-		BDD33D1C2507BD5A0078202E /* baseline_check_box_black_18dp.png in Resources */ = {isa = PBXBuildFile; fileRef = BDD33D1B2507BD5A0078202E /* baseline_check_box_black_18dp.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,8 +34,6 @@
 		BD7663D724EF6871006BCF58 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		BD7663E424F53DC9006BCF58 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		BD7663E624F6A226006BCF58 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		BDD33D192507BD520078202E /* baseline_check_box_outline_blank_black_18dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = baseline_check_box_outline_blank_black_18dp.png; sourceTree = "<group>"; };
-		BDD33D1B2507BD5A0078202E /* baseline_check_box_black_18dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = baseline_check_box_black_18dp.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,8 +87,6 @@
 				BD7663C224EDF65F006BCF58 /* LaunchScreen.storyboard */,
 				BD7663E624F6A226006BCF58 /* GoogleService-Info.plist */,
 				BD7663C524EDF65F006BCF58 /* Info.plist */,
-				BDD33D192507BD520078202E /* baseline_check_box_outline_blank_black_18dp.png */,
-				BDD33D1B2507BD5A0078202E /* baseline_check_box_black_18dp.png */,
 			);
 			path = FirebaseTest;
 			sourceTree = "<group>";
@@ -167,11 +161,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BDD33D1C2507BD5A0078202E /* baseline_check_box_black_18dp.png in Resources */,
 				BD7663C424EDF65F006BCF58 /* LaunchScreen.storyboard in Resources */,
 				BD7663E724F6A226006BCF58 /* GoogleService-Info.plist in Resources */,
 				BD7663C124EDF65F006BCF58 /* Assets.xcassets in Resources */,
-				BDD33D1A2507BD520078202E /* baseline_check_box_outline_blank_black_18dp.png in Resources */,
 				BD7663BF24EDF65C006BCF58 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
