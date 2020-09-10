@@ -21,7 +21,8 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
 
     @IBOutlet var loginEmailTextField: UITextField!
     @IBOutlet var loginPwdTextField: UITextField!
-    var unchecked = true
+    var isAutoLogin = false
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +37,19 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
         view.addSubview(loginButton)
         loginButton.permissions = ["public_profile", "email"]
        
+        
+        guard let id = self.loginEmailTextField.text else {return}
+        guard let pw = self.loginPwdTextField.text else {return}
+        
+        if self.isAutoLogin{
+            UserDefaults.standard.set(id, forKey: "id")
+            UserDefaults.standard.set(pw, forKey: "pw")
+            
+        }
+
+      
+
+    
         
     }
     
@@ -122,6 +136,26 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
         print("logout success")
     }
     
+    func autoLogin() {
+        if let userid = UserDefaults.standard.string(forKey: "id") {
+            if let pw = UserDefaults.standard.string(forKey: "pw") {
+                //로그인 통신 함수
+                LoginService.shared.getLoginResult(userid: userid, pw: pw){ b in
+                    if b {
+                        print("auto login")
+                    }
+                }
+            }
+        }
+    }
+    func autoLogout(){
+        UserDefaults.standard.removeObject(forKey: "id")
+        UserDefaults.standard.removeObject(forKey: "pw")
+        
+    }
+
+ 
+    
     @IBAction func loginBtn(_ sender: Any) {
         Auth.auth().signIn(withEmail: loginEmailTextField.text!, password: loginPwdTextField.text!) { (user, error) in
                     if user != nil {
@@ -131,6 +165,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
                         self.loginEmailTextField.placeholder = "이미 로그인 된 상태입니다."
                         self.loginPwdTextField.placeholder = "이미 로그인 된 상태입니다."
                         self.loginSuccessAlert()
+                        self.autoLogin()
                     }
                     else {
                         print("login fail")
@@ -150,6 +185,12 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
     }
     @IBAction func autoLoginBtn(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
+        if sender.isSelected == true{
+                isAutoLogin = true
+            } else{
+                isAutoLogin = false
+        }
+
     }
     
     /*
