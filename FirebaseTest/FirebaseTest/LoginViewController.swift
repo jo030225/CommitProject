@@ -21,7 +21,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
 
     @IBOutlet var loginEmailTextField: UITextField!
     @IBOutlet var loginPwdTextField: UITextField!
-    var isAutoLogin = false
+    var isAutoLogin = true
     
     
     override func viewDidLoad() {
@@ -36,20 +36,6 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
         loginButton.center = view.center
         view.addSubview(loginButton)
         loginButton.permissions = ["public_profile", "email"]
-       
-        
-        guard let id = self.loginEmailTextField.text else {return}
-        guard let pw = self.loginPwdTextField.text else {return}
-        
-        if self.isAutoLogin{
-            UserDefaults.standard.set(id, forKey: "id")
-            UserDefaults.standard.set(pw, forKey: "pw")
-            
-        }
-
-      
-
-    
         
     }
     
@@ -137,21 +123,21 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
     }
     
     func autoLogin() {
-        if let userid = UserDefaults.standard.string(forKey: "id") {
-            if let pw = UserDefaults.standard.string(forKey: "pw") {
-                //로그인 통신 함수
-                LoginService.shared.getLoginResult(userid: userid, pw: pw){ b in
-                    if b {
-                        print("auto login")
-                    }
-                }
-            }
+        let userNm = loginEmailTextField.text //id값
+        let pw = loginPwdTextField.text //pw
+        if isAutoLogin == true{ //스위치가 켜져있을때
+            let dataSave = UserDefaults.standard // UserDefaults.standard 정의
+            dataSave.setValue(userNm, forKey: "save_userNm") // save_userNm 키값에 id값 저장
+            dataSave.setValue(pw, forKey: "save_pw") // save_pw 키값에 pw값 저장
+             
+            UserDefaults.standard.synchronize() // setValue 실행
+        } else { // 스위치가 꺼져있을때
+            let dataSave = UserDefaults.standard
+            dataSave.setValue("nil", forKey: "save_userNm")
+            dataSave.setValue("nil", forKey: "save_pw")
+             
+            UserDefaults.standard.synchronize()
         }
-    }
-    func autoLogout(){
-        UserDefaults.standard.removeObject(forKey: "id")
-        UserDefaults.standard.removeObject(forKey: "pw")
-        
     }
 
  
@@ -165,7 +151,6 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
                         self.loginEmailTextField.placeholder = "이미 로그인 된 상태입니다."
                         self.loginPwdTextField.placeholder = "이미 로그인 된 상태입니다."
                         self.loginSuccessAlert()
-                        self.autoLogin()
                     }
                     else {
                         print("login fail")
@@ -186,9 +171,11 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
     @IBAction func autoLoginBtn(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         if sender.isSelected == true{
-                isAutoLogin = true
-            } else{
                 isAutoLogin = false
+                print("false")
+            } else{
+                isAutoLogin = true
+                print("true")
         }
 
     }
