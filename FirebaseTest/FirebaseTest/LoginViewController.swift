@@ -122,23 +122,31 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
         print("logout success")
     }
     
-    func autoLogin() {
-        let userNm = loginEmailTextField.text //id값
-        let pw = loginPwdTextField.text //pw
-        if isAutoLogin == true{ //스위치가 켜져있을때
-            let dataSave = UserDefaults.standard // UserDefaults.standard 정의
-            dataSave.setValue(userNm, forKey: "save_userNm") // save_userNm 키값에 id값 저장
-            dataSave.setValue(pw, forKey: "save_pw") // save_pw 키값에 pw값 저장
-             
-            UserDefaults.standard.synchronize() // setValue 실행
-        } else { // 스위치가 꺼져있을때
-            let dataSave = UserDefaults.standard
-            dataSave.setValue("nil", forKey: "save_userNm")
-            dataSave.setValue("nil", forKey: "save_pw")
-             
-            UserDefaults.standard.synchronize()
+    override func viewDidAppear(_ animated: Bool) {
+        if let user = Auth.auth().currentUser {
+            if isAutoLogin == false {
+                self.goMainPage()
+            }
         }
     }
+    
+//    func autoLogin() {
+//        let userNm = loginEmailTextField.text //id값
+//        let pw = loginPwdTextField.text //pw
+//        if isAutoLogin == true{ //스위치가 켜져있을때
+//            let dataSave = UserDefaults.standard // UserDefaults.standard 정의
+//            dataSave.setValue(userNm, forKey: "save_userNm") // save_userNm 키값에 id값 저장
+//            dataSave.setValue(pw, forKey: "save_pw") // save_pw 키값에 pw값 저장
+//
+//            UserDefaults.standard.synchronize() // setValue 실행
+//        } else { // 스위치가 꺼져있을때
+//            let dataSave = UserDefaults.standard
+//            dataSave.setValue("nil", forKey: "save_userNm")
+//            dataSave.setValue("nil", forKey: "save_pw")
+//
+//            UserDefaults.standard.synchronize()
+//        }
+//    }
 
  
     
