@@ -76,32 +76,32 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
     // 여기부터
     @available(iOS 9.0, *)
        
-       func application( _ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:] ) -> Bool {
+    func application( _ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:] ) -> Bool {
            
-           let facebook = ApplicationDelegate.shared.application( app, open: url, sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplication.OpenURLOptionsKey.annotation] )
+        let facebook = ApplicationDelegate.shared.application( app, open: url, sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplication.OpenURLOptionsKey.annotation] )
                
-           let google = GIDSignIn.sharedInstance().handle(url)
+        let google = GIDSignIn.sharedInstance().handle(url)
                
-           return facebook || google
+        return facebook || google
                
-       }
+    }
        
-       func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
          // ...
-            guard let authentication = user.authentication else { return }
-            let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken)
-            if let error = error{
-                print("google login fail")
-            } else {
-                self.goMainPage()
-            }
+        guard let authentication = user.authentication else { return }
+        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken)
+        if let error = error{
+            print("google login fail")
+        } else {
+            self.goMainPage()
+        }
             
            
-            Auth.auth().signIn(with: credential) { (authResult, error) in
+        Auth.auth().signIn(with: credential) { (authResult, error) in
                
-           }
+        }
         
-       }
+    }
     // 여기까지
     
     func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
