@@ -149,6 +149,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
     @IBAction func signInButton(_ sender: Any) {
         GIDSignIn.sharedInstance().signIn()
     }
+    
     @IBAction func autoLoginBtn(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         if sender.isSelected == true{
@@ -158,7 +159,6 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
             isAutoLogin = true
             print("true")
         }
-
     }
     
     /*
