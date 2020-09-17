@@ -39,11 +39,6 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
         
     }
     
-    
-        
-    
-    
-    
     func goMainPage(){
         guard let goMain = self.storyboard?.instantiateViewController(identifier: "MainPage") else { return }
         goMain.modalPresentationStyle = .fullScreen
@@ -133,6 +128,9 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
                 self.loginEmailTextField.placeholder = "이미 로그인 된 상태입니다."
                 self.loginPwdTextField.placeholder = "이미 로그인 된 상태입니다."
                 self.loginSuccessAlert()
+                if self.isAutoLogin == true {
+                    
+                }
             } else{
                 print("login fail")
                 self.loginFailAlert()
