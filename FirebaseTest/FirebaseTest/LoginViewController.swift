@@ -21,7 +21,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
 
     @IBOutlet var loginEmailTextField: UITextField!
     @IBOutlet var loginPwdTextField: UITextField!
-    var isAutoLogin = true
+    var isAutoLogin = Bool()
     
     
     override func viewDidLoad() {
@@ -45,17 +45,11 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
         self.present(goMain, animated: true)
     }
     
+    
     func loginSuccessAlert(){
         let alert = UIAlertController(title: "로그인 성공", message: "로그인을 성공했습니다", preferredStyle: UIAlertController.Style.alert)
         let ok = UIAlertAction(title: "확인", style: UIAlertAction.Style.default){ (_) in
-            if self.isAutoLogin == true {
-                if let user = Auth.auth().currentUser {
-                    guard let dvc = self.storyboard?.instantiateViewController(identifier: "MainPage") as? MainViewController else { return }
-                    self.present(dvc, animated: true, completion: nil)
-                }
-            } else {
                 self.goMainPage()
-            }
         }
         alert.addAction(ok)
         self.present(alert, animated: false)
@@ -67,11 +61,6 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
         alert.addAction(ok)
         self.present(alert, animated: false)
     }
-    
-    
-    
-    
-    
     
     
     // 구글 로그인
@@ -135,9 +124,6 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
                 self.loginEmailTextField.placeholder = "이미 로그인 된 상태입니다."
                 self.loginPwdTextField.placeholder = "이미 로그인 된 상태입니다."
                 self.loginSuccessAlert()
-                if self.isAutoLogin == true {
-                    
-                }
             } else{
                 print("login fail")
                 self.loginFailAlert()
