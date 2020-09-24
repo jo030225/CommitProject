@@ -48,7 +48,14 @@ class LoginViewController: UIViewController, GIDSignInDelegate, LoginButtonDeleg
     func loginSuccessAlert(){
         let alert = UIAlertController(title: "로그인 성공", message: "로그인을 성공했습니다", preferredStyle: UIAlertController.Style.alert)
         let ok = UIAlertAction(title: "확인", style: UIAlertAction.Style.default){ (_) in
-            self.goMainPage()
+            if self.isAutoLogin == true {
+                if let user = Auth.auth().currentUser {
+                    guard let dvc = self.storyboard?.instantiateViewController(identifier: "MainPage") as? MainViewController else { return }
+                    self.present(dvc, animated: true, completion: nil)
+                }
+            } else {
+                self.goMainPage()
+            }
         }
         alert.addAction(ok)
         self.present(alert, animated: false)
